@@ -1,4 +1,4 @@
-# Marketplace schema creation
+# Proveedores schema creation
 
 # === !Ups
 CREATE TABLE "proveedores" (

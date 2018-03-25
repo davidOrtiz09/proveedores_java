@@ -2,6 +2,7 @@ package controllers;
 
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.*;
+import static play.mvc.Results.*;
 
 import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;

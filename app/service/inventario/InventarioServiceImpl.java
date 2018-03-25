@@ -9,12 +9,16 @@ import java.util.concurrent.CompletionStage;
 
 public class InventarioServiceImpl implements InventarioService {
 
-    @Inject
+
     private InventarioDAO inventarioDAO;
 
+    @Inject
+    public InventarioServiceImpl(InventarioDAO inventarioDAO) {
+        this.inventarioDAO = inventarioDAO;
+    }
+
     public CompletionStage<List<Inventario>> getInventariosByProveedor(Long id){
-        //TODO Implementar query
-        return null;
+        return inventarioDAO.getInventarioByProveedor(id);
     }
 
     public CompletionStage<Long> cambiarInventario(Long idInventario, int cambio){

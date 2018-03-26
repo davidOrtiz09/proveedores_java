@@ -1,5 +1,8 @@
 package controllers;
 
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+import dao.InventarioDAO;
 import model.Inventario;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.*;
@@ -8,6 +11,7 @@ import java.util.concurrent.CompletionStage;
 import scala.collection.JavaConverters;
 import scala.collection.Seq;
 import service.inventario.InventarioService;
+import service.inventario.SQSConsumerActor;
 
 public class InventarioController extends Controller {
 
@@ -15,10 +19,17 @@ public class InventarioController extends Controller {
 
     private final HttpExecutionContext httpExecutionContext;
 
+    final ActorRef helloActor;
+
+    private InventarioDAO inventarioDAO;
+
+
     @Inject
-    public InventarioController(InventarioService inventarioService, HttpExecutionContext httpExecutionContext){
+    public InventarioController(ActorSystem system, InventarioService inventarioService, HttpExecutionContext httpExecutionContext, InventarioDAO inventarioDAO){
         this.inventarioService = inventarioService;
         this.httpExecutionContext = httpExecutionContext;
+        this.inventarioDAO = inventarioDAO;
+        helloActor = system.actorOf(SQSConsumerActor.props(inventarioDAO));
     }
 
     public CompletionStage<Result> mostrarInventario(Long idProveedor) {

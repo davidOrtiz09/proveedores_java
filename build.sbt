@@ -18,7 +18,7 @@ libraryDependencies ++= Seq(
   evolutions,
   guice,
   "org.postgresql" % "postgresql" % "9.4.1208",
-  "com.amazonaws" % "aws-java-sdk-sqs" % "1.11.301"
+  "com.lightbend.akka" %% "akka-stream-alpakka-sqs" % "0.17"
 )
 
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )

@@ -40,7 +40,6 @@ class SQSConsumerActor(inventarioDAO: InventarioDAO) extends Actor {
     .throttle(maxMsg, timeDelay.milli, maxMsg, ThrottleMode.shaping)
     .runForeach((message) => {
 
-      println("------------ Esta consumiendo mensajes --------------")
       println("Se recibio este mensaje: " + message.getBody)
       val productosId = message.getBody.split("-").toList.map(_.toLong)
 
